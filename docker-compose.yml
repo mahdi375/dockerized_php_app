@@ -1,0 +1,46 @@
+version: '3.8'
+services:
+
+  app:
+    build: 
+      context: ./app
+      dockerfile: Dockerfile
+    image: php-test-php
+    container_name: php-test-app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./app:/var/www
+    networks:
+      - full-net
+
+  nginx:
+    image: nginx:mainline-alpine
+    container_name: php-test-http
+    restart: unless-stopped
+    ports:
+      - 88:80
+    volumes:
+      - ./app:/var/www
+      - ./config/nginx:/etc/nginx/conf.d/
+    networks:
+      - full-net
+
+  # db:
+  #   image: mysql:5.7.21
+  #   container_name: php_test_database
+  #   restart: unless-stopped
+  #   environments:
+  #     MYSQL_DATABASE: ${DB_DATABASE}          # this should come from .env of (laravel) application
+  #     MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+  #     MYSQL_PASSWORD: ${DB_PASSWORD}
+  #     MYSQL_USER: ${DB_USER}
+  #   volumes:
+  #     -./data/mysql:/docker-entrypoint-initdb.d   # this is especial for this image to initialize (dump) into container database
+  #   networks:
+  #     - full-net
+
+networks:
+  full-net:
+    driver: bridge
+
