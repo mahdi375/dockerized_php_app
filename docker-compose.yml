@@ -1,16 +1,23 @@
 version: '3.8'
+
 services:
 
   app:
     build: 
       context: ./app
       dockerfile: Dockerfile
+      args:
+        user: moshy
+        uid: 1000
     image: php-test-php
     container_name: php-test-app
     restart: unless-stopped
     working_dir: /var/www
+    env_file:
+      - ./config/env/app.env
     volumes:
-      - ./app:/var/www
+      - ./app:/var/www              # development
+      - ./logs/php:/var/www/logs    # logs
     networks:
       - full-net
 
@@ -23,6 +30,7 @@ services:
     volumes:
       - ./app:/var/www
       - ./config/nginx:/etc/nginx/conf.d/
+      - ./logs/nginx/:/var/log/nginx/
     networks:
       - full-net
 
