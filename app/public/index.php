@@ -13,7 +13,6 @@ $app_name = Env::get('APP_NAME');
 echo "<h1> Test Done </h1>";
 echo "<h2> Welcome to {$app_name} app</h2>";
 
-$db->migrate();
 $db->insert('title 1', 'body 1 bomo tepo');
 $posts = $db->getAll();
 

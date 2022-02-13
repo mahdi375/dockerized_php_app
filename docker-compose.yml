@@ -13,10 +13,13 @@ services:
     container_name: php-test-app
     restart: unless-stopped
     working_dir: /var/www
+    entrypoint:  ["./scripts/entrypoint.sh"]
+    # depends_on:                           # this control containers shoutdown order
+    #   - db
     env_file:
       - ./config/env/app.env
     volumes:
-      - ./app:/var/www              # development
+      # - ./app:/var/www              # development
       - ./logs/php:/var/www/logs    # logs
     networks:
       - full-net
@@ -40,9 +43,8 @@ services:
     restart: unless-stopped
     env_file:
       - ./config/env/db.env
-    # expose:                          # this not working  ! we use MYSQL_TCP_PORT env var...
-    #   - "3037"
     # volumes:
+    #   - ./config/mysql:/etc/mysql/conf.d 
   #     -./data/mysql:/docker-entrypoint-initdb.d   # this is especial for this image to initialize (dump) into container database
     networks:
       - full-net
