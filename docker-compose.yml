@@ -34,19 +34,18 @@ services:
     networks:
       - full-net
 
-  # db:
-  #   image: mysql:5.7.21
-  #   container_name: php_test_database
-  #   restart: unless-stopped
-  #   environments:
-  #     MYSQL_DATABASE: ${DB_DATABASE}          # this should come from .env of (laravel) application
-  #     MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-  #     MYSQL_PASSWORD: ${DB_PASSWORD}
-  #     MYSQL_USER: ${DB_USER}
-  #   volumes:
+  db:                                   # we use this as database host name :)
+    image: mysql:5.7
+    container_name: php-test-database
+    restart: unless-stopped
+    env_file:
+      - ./config/env/db.env
+    # expose:                          # this not working  ! we use MYSQL_TCP_PORT env var...
+    #   - "3037"
+    # volumes:
   #     -./data/mysql:/docker-entrypoint-initdb.d   # this is especial for this image to initialize (dump) into container database
-  #   networks:
-  #     - full-net
+    networks:
+      - full-net
 
 networks:
   full-net:
