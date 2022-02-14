@@ -24,5 +24,5 @@ WORKDIR /var/www
 USER $user
 
 COPY --chown=$user:www-data . .
-# RUN chmod u+x entrypoint.sh                                           # exec before copy it on host
+# RUN chmod u+x entrypoint.sh                                           # exec before copy it on host # resolve permission denied
 # ENTRYPOINT [ "./scripts/entrypoint.sh" ]

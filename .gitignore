@@ -3,4 +3,7 @@ app/logs
 logs/nginx
 logs/php
 
+data/mysql
+data/uploads
+
 

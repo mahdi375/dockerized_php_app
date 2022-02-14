@@ -43,11 +43,16 @@ services:
     restart: unless-stopped
     env_file:
       - ./config/env/db.env
-    # volumes:
-    #   - ./config/mysql:/etc/mysql/conf.d 
-  #     -./data/mysql:/docker-entrypoint-initdb.d   # this is especial for this image to initialize (dump) into container database
+    volumes:
+      - mysql-data:/var/lib/mysql
+      # - ./data/mysql:/var/lib/mysql           # Insecure, because ./data/mysql is open...
+      # - ./config/mysql:/etc/mysql/conf.d      
+      # - ./data/mysql:/docker-entrypoint-initdb.d   # this is especial for this image to initialize (dump) into container database
     networks:
       - full-net
+
+volumes:
+  mysql-data:   #> docker volume ls   && docker inspect 234csef
 
 networks:
   full-net:
