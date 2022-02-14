@@ -3,16 +3,12 @@
    
 ## Subjects
 
-> up and running docker-compose: php, nginx, mysql
+### **up and running docker-compose:** php, nginx, mysql
+### **using volumes:** save logs and files
+### **ordering container run:** execute migrations
+### **persisting mysql data**
 
-> using volumes: save logs and files
-
-> ordering container run: execute migrations
-
-> persisting mysql data
-
-...
+```
 
 docker-compose up --build
-
-...
+```
